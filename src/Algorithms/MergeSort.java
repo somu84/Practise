@@ -1,5 +1,7 @@
 package Algorithms;
-
+/*
+ * Merge sort implementation. The complexity is O(nlog(n))
+ */
 public class MergeSort {
 
 	public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class MergeSort {
     }
     //Merge Sort Algorithm
     public static int[] mergeSort(int[]arr, int end){
-    	++count;
+    	count++;
     	if(end<=1){
     		return arr;
     	}
