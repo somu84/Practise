@@ -4,8 +4,8 @@ package src.com.ctc.c2;
  * This class will be used for all questions
  */
 public class Node {
-	Node next = null;
-	int data;
+	public Node next = null;
+	public int data;
 
 	public Node(int d){
 		data = d;
@@ -37,7 +37,7 @@ public class Node {
 	//Display a Linked List
 	public void display(){
 		Node n = this;
-		while(n.next != null){
+		while(n != null){
 			System.out.print(n.data+"->");
 			n = n.next;
 		}
