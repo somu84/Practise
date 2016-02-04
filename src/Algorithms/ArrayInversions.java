@@ -1,4 +1,6 @@
 package Algorithms;
+import java.io.*;
+import java.util.ArrayList;
 /*
  * An array inversion is given in an Array of N integers.
  * suppose there are two indexes i,j where i<j. The values
@@ -8,13 +10,46 @@ package Algorithms;
  * We use merge sort to complete this in O(nLogn) time.
  */
 public class ArrayInversions {
-	public static int count = 0;
+	public static long count = 0;
 	public static void main(String[] args) {
-		int[] arr = {1,3,5,2,4,6};
+		String fileName = "C:/Users/somes/workspace/Practise/IntegerArray.txt";
+		int[] arr = CreateArr(fileName);
+		for(int i=0;i<arr.length;i++){
+			System.out.println(arr[i]);
+		}
+		System.out.println();
 		int[]res = countInversion(arr);
 		System.out.println("Total Inversions: "+count);
+		
 	}
 	
+	public static int[]CreateArr(String fileName){
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		String line = null;
+		try{
+			FileReader f = new FileReader(fileName);
+			BufferedReader bf = new BufferedReader(f);
+			while((line = bf.readLine()) != null){
+				arr.add(Integer.parseInt(line));
+			}
+			bf.close();
+		}
+		catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '" + 
+                fileName + "'");                
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error reading file '" 
+                + fileName + "'");                  
+        }
+		int[]ar = new int[arr.size()];
+		for(int i=0;i<ar.length; i++){
+			ar[i] = arr.get(i);
+		}
+		return ar;
+	}
 	public static int[] countInversion(int[] arr){
 		if(arr.length<=1)
 			return arr;
