@@ -4,6 +4,9 @@ package Algorithms;
  * Worst case running time will be when the array is already sorted or reverse sorted.'
  * The complexity will be O(n2)
  * 
+ * But the average case scenario the running time is O(nlog(n)).
+ * See RandomizedQuickSort for how to deal with the worst case.
+ * 
  */
 public class QuickSort {
 
