@@ -27,16 +27,17 @@ public class Stacks {
 	public Integer pop(){
 		Integer d = null;
 		if(top >= 0 && top < stack.length){
+			top--;
 			d = stack[top];
 			stack[top] = null;
-			--top;
+			//--top;
 		}
 		else if(top == stack.length){
 			top--;
 			d = stack[top];
 			stack[top] = null;
 			isFull = false;
-			--top;
+			//--top;
 		}
 		return d;
 	}
