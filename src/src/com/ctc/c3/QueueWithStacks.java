@@ -1,6 +1,6 @@
 package src.com.ctc.c3;
 /*
- * Chap 3 Q4
+ * Chap 3 Q5
  */
 public class QueueWithStacks {
 	
