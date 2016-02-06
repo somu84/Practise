@@ -60,4 +60,7 @@ public class Stacks {
 	public boolean getStackCap(){
 		return isFull;
 	}
+	public int getTop(){
+		return top;
+	}
 }
