@@ -6,17 +6,22 @@ package src.com.ctc.c3;
 public class Stacks {
 	private Integer[] stack;
 	private int top;
+	private boolean isFull;
 	
 	public Stacks(int size){
 		stack = new Integer[size];
 		top = 0;
+		isFull = false;
 	}
 	public boolean push(int d){
 		if(top <= stack.length -1){
 			stack[top] = d;
 			top++;
+			if(top == stack.length)
+				isFull = true;
 			return true;
 		}
+		
 		return false;
 	}
 	public Integer pop(){
@@ -30,6 +35,7 @@ public class Stacks {
 			top--;
 			d = stack[top];
 			stack[top] = null;
+			isFull = false;
 			--top;
 		}
 		return d;
@@ -49,5 +55,8 @@ public class Stacks {
 		for(Integer k: this.stack){
 			System.out.println(k);
 		}
+	}
+	public boolean getStackCap(){
+		return isFull;
 	}
 }
