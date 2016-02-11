@@ -2,7 +2,7 @@ package Algorithms;
 
 public class BST {
 
-	private int data;
+	private Integer data;
 	public BST left = null;
 	public BST right = null;
 	public BST parent = null;
@@ -10,9 +10,9 @@ public class BST {
 	public BST(int d){
 		data = d;
 	}
-	public BST(){
-		data = 0;
-	}
+	//public BST(){
+	//	data = 0;
+	//}
 	public void insert(int d){
 		BST end = new BST(d);
 		BST n = this;
@@ -40,8 +40,24 @@ public class BST {
 			}
 		}
 	}
-
+	public static boolean search(BST n, int d){
+		if(n.left == null & n.right == null){
+			if(d == n.data)
+				return true;
+			else return false;
+		}
+		if(n.data == d)
+			return true;
+		else if(n.data > d){
+			return search(n.left, d);
+		}
+		else{
+			return search(n.right, d);
+		}
+	}
 	public static void disp(BST n){		
+		if(n == null)
+			return;
 		if(n.parent == null){
 			disp(n.left);
 			System.out.print(n.data+" ");
@@ -74,11 +90,14 @@ public class BST {
 				70, 51, 28, 32, 81, 10, 82, 40, 57, 24, 25, 91, 44, 66, 30, 62, 94, 6, 7, 46, 43,
 				38, 75, 11, 39, 80, 98, 27, 12, 76, 96, 2, 77, 19, 26, 59, 33, 73, 13, 61, 95, 97
 				};
+				
 		BST n = new BST(arr[0]);
 		for(int i =1; i< arr.length; i++){
-			n.insert(i);
+			n.insert(arr[i]);
 		}
-		disp(n);
+		//disp(n);
+		//System.out.println();
+		System.out.println(search(n, 0));
 	}
 
 }
