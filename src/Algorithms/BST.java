@@ -58,16 +58,16 @@ public class BST {
 		//update height
 		updateHeight(n);
 	}
-	public static boolean search(BST n, int d){
+	public static BST search(BST n, int d){
 		if(n==null)
-			return false;
+			return null;
 		if(n.left == null & n.right == null){
 			if(d == n.data)
-				return true;
-			else return false;
+				return n;
+			else return null;
 		}
 		if(n.data == d)
-			return true;
+			return n;
 		else if(n.data > d){
 			return search(n.left, d);
 		}
@@ -97,13 +97,57 @@ public class BST {
 			System.out.print(n.data+" ");
 		}
 	}
+	public static void delete(BST n, int val){
+		BST n1 = search(n, val);
+		if(n1 == null)
+			return;
+		else if(n1.left == null && n1.right == null){
+			n = n1.parent;
+			if(n.data <= val)
+				n.right = null;
+			else
+				n.left = null;
+		}
+		else if(n1.left != null && n1.right != null){
+			n1.data = min(n1.right);
+			delete(n1.right, n1.data);
+		}
+		else if(n1.left == null){
+			n = n1.parent;
+			if(n.data <=val){
+				n.right = n1.right;
+			}
+			else
+				n.left = n1.right;
+		}
+		else if(n1.right == null){
+			n = n1.parent;
+			if(n.data <=val){
+				n.right = n1.left;
+			}
+			else
+				n.left = n1.left;
+		}
+	}
+	private static int min(BST n){
+		if(n == null){
+			return -1;
+		}
+		BST min = null;
+		while(n != null){
+			min = n;
+			if(n.left == null){
+				return min.data;
+			}
+			else{
+				n = n.left;
+			}
+		}
+		return min.data;
+	}
+	
 	public static void main(String[] args) {
-		int[] arr = { 85, 64, 16, 18, 1, 88, 48, 63, 54, 83, 79, 50, 0, 55, 17, 99,
-				69, 53, 65, 22, 93, 86, 9, 37, 56, 23, 21, 52, 78, 29, 14, 58, 35, 47, 68, 87, 3,
-				34, 5, 74,  45, 41, 49, 67, 89, 92, 60, 72, 20, 8, 15, 42, 71, 31, 36, 90, 84,
-				70, 51, 28, 32, 81, 10, 82, 40, 57, 24, 25, 91, 44, 66, 30, 62, 94, 6, 7, 46, 43,
-				38, 75, 11, 39, 80, 98, 27, 12, 76, 96, 2, 77, 19, 26, 59, 33, 73, 13, 61, 95, 97
-				};
+		int[] arr = { 85, 64, 88, 48, 63, 54, 83, 79, 50, 55, 99};
 				
 		BST n = new BST(arr[0]);
 		for(int i =1; i< arr.length; i++){
@@ -111,7 +155,10 @@ public class BST {
 		}
 		disp(n);
 		System.out.println();
-		System.out.println(search(n, 99));
+		//BST n1 = search(n, 10);
+		delete(n, 50);
+		disp(n);
+		System.out.println();
 		System.out.println(n.getHeight());
 	}
 
