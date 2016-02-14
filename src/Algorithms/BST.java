@@ -6,23 +6,40 @@ public class BST {
 	public BST left = null;
 	public BST right = null;
 	public BST parent = null;
+	private int height = -1;
 	
 	public BST(int d){
 		data = d;
+		height = 0;
 	}
-	//public BST(){
-	//	data = 0;
-	//}
 	public void insert(int d){
 		BST end = new BST(d);
 		BST n = this;
 		insertTree(n, end);
 	}
+	public void updateHeight(BST n){
+		if(n.left != null && n.right != null)
+			n.height = max(n.left.height, n.right.height)+1;
+		else if(n.left != null)
+			n.height = n.left.height+1;
+		else if(n.right != null)
+			n.height = n.right.height+1;
+		else
+			n.height = 0;
+	}
+	
+	public int getHeight(){
+		return this.height;
+	}
+	private int max(int h1, int h2){
+		if(h1 <= h2)
+			return h2;
+		return h1;
+	}
 	public void insertTree(BST n, BST end){
 		if(n.data > end.data){
 			if(n.left != null){
-				n = n.left;
-				insertTree(n, end);
+				insertTree(n.left, end);
 			}
 			else{
 				n.left = end;
@@ -31,16 +48,19 @@ public class BST {
 		}
 		else{
 			if(n.right != null){
-				n = n.right;
-				insertTree(n, end);
+				insertTree(n.right, end);
 			}
 			else{
 				n.right = end;
 				end.parent = n;
 			}
 		}
+		//update height
+		updateHeight(n);
 	}
 	public static boolean search(BST n, int d){
+		if(n==null)
+			return false;
 		if(n.left == null & n.right == null){
 			if(d == n.data)
 				return true;
@@ -55,38 +75,32 @@ public class BST {
 			return search(n.right, d);
 		}
 	}
-	public static void disp(BST n){		
-		if(n == null)
+	
+	public static void disp(BST n){
+		if(n == null){
 			return;
-		if(n.parent == null){
+		}
+		if (n.left == null && n.right == null){
+			System.out.print(n.data+" ");
+		}
+		else if(n.left != null && n.right != null){
 			disp(n.left);
 			System.out.print(n.data+" ");
 			disp(n.right);
-			return;
-		}
-		if(n.left == null && n.right == null){
-			System.out.print(n.data+ " ");
-			return;
 		}
 		else if(n.left == null){
 			System.out.print(n.data+" ");
-			n = n.right;
-			disp(n);
-			n = n.parent;
-			n.right = null;
-			return;
+			disp(n.right);
 		}
-		else{
+		else if(n.right == null){
 			disp(n.left);
-			n.left = null;
-			disp(n);
-			return;
+			System.out.print(n.data+" ");
 		}
 	}
 	public static void main(String[] args) {
 		int[] arr = { 85, 64, 16, 18, 1, 88, 48, 63, 54, 83, 79, 50, 0, 55, 17, 99,
 				69, 53, 65, 22, 93, 86, 9, 37, 56, 23, 21, 52, 78, 29, 14, 58, 35, 47, 68, 87, 3,
-				34, 5, 74, 4, 45, 41, 49, 67, 89, 92, 60, 72, 20, 8, 15, 42, 71, 31, 36, 90, 84,
+				34, 5, 74,  45, 41, 49, 67, 89, 92, 60, 72, 20, 8, 15, 42, 71, 31, 36, 90, 84,
 				70, 51, 28, 32, 81, 10, 82, 40, 57, 24, 25, 91, 44, 66, 30, 62, 94, 6, 7, 46, 43,
 				38, 75, 11, 39, 80, 98, 27, 12, 76, 96, 2, 77, 19, 26, 59, 33, 73, 13, 61, 95, 97
 				};
@@ -95,9 +109,10 @@ public class BST {
 		for(int i =1; i< arr.length; i++){
 			n.insert(arr[i]);
 		}
-		//disp(n);
-		//System.out.println();
-		System.out.println(search(n, 0));
+		disp(n);
+		System.out.println();
+		System.out.println(search(n, 99));
+		System.out.println(n.getHeight());
 	}
 
 }
