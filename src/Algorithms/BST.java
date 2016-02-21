@@ -28,6 +28,9 @@ public class BST {
 			n.height = 0;
 	}
 	
+	public Integer getData(){
+		return this.data;
+	}
 	public int getHeight(){
 		return this.height;
 	}
