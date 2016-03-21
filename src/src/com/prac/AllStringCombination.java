@@ -13,7 +13,7 @@ public class AllStringCombination {
 			System.out.println("True");
 			
 		}
-		//combinations(str);
+		combinations(str);
 	}
 	
 	private static void combinations(String str){

@@ -43,11 +43,7 @@ public class Stacks {
 	}
 	public Integer peek(){
 		Integer d = null;
-		if(top >= 0 && top < stack.length){
-			d = stack[top-1];
-		}
-		else if(top == stack.length){
-			//top--;
+		if(top >= 0 && top <= stack.length){
 			d = stack[top-1];
 		}
 		return d;
