@@ -1,28 +1,19 @@
-//To print all the possible of a string
-package src.com.prac;
+package src.com.ctc.c8;
 
-//import java.util.ArrayList;
-
-public class AllStringCombination {
+public class Q3 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String str = new String("abc");
-		String str2 = new String("abc");
-		if(str == str2){
-			System.out.println("True");
-			
-		}
 		combinations(str);
 	}
-	
 	private static void combinations(String str){
 		int length = str.length();
 		StringBuffer output = new StringBuffer(length);
 		combine(str, length, output, 0);
 	}
 	
-	private static void combine(String str, int length, StringBuffer output, int allowedStart){
+	private static void combine(String str, int length, 
+			StringBuffer output, int allowedStart){
 		if(allowedStart == length){
 			return;
 		}
@@ -35,5 +26,4 @@ public class AllStringCombination {
 			}
 		}
 	}
-
 }

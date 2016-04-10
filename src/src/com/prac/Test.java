@@ -8,6 +8,8 @@ public class Test {
 		//System.out.println( array6(arr,0) );
 		String a = "x";
 		String b = "z";
+		int max = 1 << 4;
+		System.out.println(max);
 		//System.out.println(strCopies(a,b,2));
 		System.out.println(strDist(a, b));
 	    
