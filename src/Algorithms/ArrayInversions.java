@@ -1,4 +1,5 @@
 package Algorithms;
+
 import java.io.*;
 import java.util.ArrayList;
 /*
@@ -12,13 +13,14 @@ import java.util.ArrayList;
 public class ArrayInversions {
 	public static long count = 0;
 	public static void main(String[] args) {
-		String fileName = "C:/Users/somes/workspace/Practise/IntegerArray.txt";
-		int[] arr = CreateArr(fileName);
+		String basePath = new File("").getAbsolutePath();
+		String fileName = basePath.concat("/IntegerArray.txt");
+	int[] arr = CreateArr(fileName);
 		for(int i=0;i<arr.length;i++){
 			System.out.println(arr[i]);
 		}
 		System.out.println();
-		int[]res = countInversion(arr);
+		countInversion(arr);
 		System.out.println("Total Inversions: "+count);
 		
 	}
@@ -82,3 +84,4 @@ public class ArrayInversions {
     	return res;
 	}
 }
+
