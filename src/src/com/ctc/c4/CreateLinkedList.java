@@ -8,7 +8,7 @@ package src.com.ctc.c4;
 import java.util.LinkedList;
 import java.util.List;
 
-import Algorithms.BST;
+import src.com.algorithms.BST;
 
 public class CreateLinkedList {
 

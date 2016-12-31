@@ -1,6 +1,6 @@
 package src.com.ctc.c4;
 
-import Algorithms.BST;
+import src.com.algorithms.BST;
 
 public class NextSuccessor {
 	

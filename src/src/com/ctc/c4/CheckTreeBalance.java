@@ -4,7 +4,7 @@
  * Then the tree is not balanced.
  */
 package src.com.ctc.c4;
-import Algorithms.*;
+import src.com.algorithms.*;
 public class CheckTreeBalance {
 
 	public static void main(String[] args) {
