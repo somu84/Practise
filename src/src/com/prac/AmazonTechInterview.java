@@ -3,8 +3,7 @@ package src.com.prac;
 public class AmazonTechInterview {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] arr = {2,1,0,1,2,3,4,5,6};
+		int[] arr = {};
 		int i = find(arr, 8);
 		if(i!= -1){
 			System.out.println("Found at index: " + i);
@@ -15,7 +14,14 @@ public class AmazonTechInterview {
 	}
 	public static int find(int[] arr, int x)
 	{
-	    if(x == arr[0])
+	    //This is why I was rejected by Amazon. I forgot the null check.
+		if(arr == null || arr.length < 1)
+		{
+			System.out.println("Array is empty");
+			return -1;
+		}
+		//Always remember to have null and empty checks.
+		if(x == arr[0])
 	    {
 	        return 0;
 	    }

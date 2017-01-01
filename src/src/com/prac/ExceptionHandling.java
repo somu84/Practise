@@ -13,6 +13,7 @@ public class ExceptionHandling {
 		int n1 = i.nextInt();
 		System.out.println("Enter second number:");
 		int n2 = i.nextInt();
+		i.close();
 		try{
 			double div = (double)n1 / n2;
 			System.out.println(div);
