@@ -9,7 +9,13 @@ package src.com.algorithms.Graph;
  */
 public class Edge {
 
-	String startVertex;
-	String endVertex;
+	/*
+	 * Instead of having the another copy of the 
+	 * vertices here. To conserve memory, we have the 
+	 * array index value of the Vertex array.
+	 *
+	 */
+	int startVertexIndex;
+	int endVertexIndex;
 	int weight;
 }
