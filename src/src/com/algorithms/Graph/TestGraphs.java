@@ -16,27 +16,15 @@ public class TestGraphs {
 		System.out.println("Graph created successfuly");
 		
 		//Check the DFS Scenarios
-		if(g.hasPathDFS(4, 1))
-			System.out.println("Test Case 1: Passed");
+		if(testDFS(g))
+			System.out.println("DFS tested successfully");
 		else
-			System.out.println("Test Case 1: Failed");
-		if(g.hasPathDFS(1, 4))
-			System.out.println("Test Case 2: Passed");
+			System.out.println("DFS implementation has issues");
+		//Check the BFS Scenarios
+		if(testBFS(g))
+			System.out.println("BFS tested successfully");
 		else
-			System.out.println("Test Case 2: Failed");
-		if(g.hasPathDFS(5, 3))
-			System.out.println("Test Case 3: Passed");
-		else
-			System.out.println("Test Case 3: Failed");
-		if(g.hasPathDFS(3, 5))
-			System.out.println("Test Case 4: Passed");
-		else
-			System.out.println("Test Case 4: Failed");
-		if(!g.hasPathDFS(7, 5))
-			System.out.println("Test Case 5: Passed");
-		else
-			System.out.println("Test Case 5: Failed");
-		
+			System.out.println("BFS implementation has issues");
 	}
 	
 	/**
@@ -74,4 +62,83 @@ public class TestGraphs {
 		return g;
 	}
 
+	/**
+	 * 
+	 * @param g
+	 * @return
+	 */
+	private static boolean testDFS(Graph g)
+	{
+		if(g.hasPathDFS(4, 1))
+			System.out.println("Test Case 1: Passed");
+		else{
+			System.out.println("Test Case 1: Failed");
+			return false;
+		}
+		if(g.hasPathDFS(1, 4))
+			System.out.println("Test Case 2: Passed");
+		else{
+			System.out.println("Test Case 2: Failed");
+			return false;
+		}
+		if(g.hasPathDFS(5, 3))
+			System.out.println("Test Case 3: Passed");
+		else{
+			System.out.println("Test Case 3: Failed");
+			return false;
+		}
+		if(g.hasPathDFS(3, 5))
+			System.out.println("Test Case 4: Passed");
+		else{
+			System.out.println("Test Case 4: Failed");
+			return false;
+		}
+		if(!g.hasPathDFS(7, 5))
+			System.out.println("Test Case 5: Passed");
+		else{
+			System.out.println("Test Case 5: Failed");
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param g
+	 * @return
+	 */
+	private static boolean testBFS(Graph g)
+	{
+		if(g.hasPathBFS(4, 1))
+			System.out.println("Test Case 1: Passed");
+		else{
+			System.out.println("Test Case 1: Failed");
+			return false;
+		}
+		if(g.hasPathBFS(1, 4))
+			System.out.println("Test Case 2: Passed");
+		else{
+			System.out.println("Test Case 2: Failed");
+			return false;
+		}
+		if(g.hasPathBFS(5, 3))
+			System.out.println("Test Case 3: Passed");
+		else{
+			System.out.println("Test Case 3: Failed");
+			return false;
+		}
+		if(g.hasPathBFS(3, 5))
+			System.out.println("Test Case 4: Passed");
+		else{
+			System.out.println("Test Case 4: Failed");
+			return false;
+		}
+		if(!g.hasPathBFS(7, 5))
+			System.out.println("Test Case 5: Passed");
+		else{
+			System.out.println("Test Case 5: Failed");
+			return false;
+		}
+		return true;
+	}
 }
