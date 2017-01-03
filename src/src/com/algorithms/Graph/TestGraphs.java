@@ -63,7 +63,7 @@ public class TestGraphs {
 	}
 
 	/**
-	 * 
+	 * Test the DFS method
 	 * @param g
 	 * @return
 	 */
@@ -103,7 +103,7 @@ public class TestGraphs {
 	}
 	
 	/**
-	 * 
+	 * Test the BFS method.
 	 * @param g
 	 * @return
 	 */
