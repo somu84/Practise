@@ -47,7 +47,7 @@ public class Graph {
 	}
 	
 	/**
-	 * 
+	 * This function is used to add a new edge between two vertices.
 	 * @param source
 	 * @param dest
 	 */
@@ -57,12 +57,14 @@ public class Graph {
 		s.adj.add(d);
 	}
 	
+	
 	/**
-	 * TODO 
-	 * 
+	 * This function is used to add a new vertex in the graph.
+	 * @param id
 	 */
 	public void addNode(int id) {
-		
+		Node newNode = new Node(id);
+		nodeLookup.put(id, newNode);
 	}
 	
 	/**
