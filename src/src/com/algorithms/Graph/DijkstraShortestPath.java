@@ -13,7 +13,7 @@ package src.com.algorithms.Graph;
  *  	while Q != NULL //Q is the set of vertices in the graph G. S is the set of shortest paths.
  *  		u = ExtractMin(Q); //This will delete a vertex u from Q
  *  		S = S.add(u); //Put u into the set S.
- *  		for each vertex v : Adj(u) //For each vertext v adjacent to u
+ *  		for each vertex v : Adj(u) //For each vertex v adjacent to u
  *  			Relax (u,v,w);
  *  
  *   Relax(u,v,w)
