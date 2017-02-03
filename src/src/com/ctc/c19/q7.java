@@ -9,7 +9,8 @@ import java.util.ArrayList;
  */
 public class q7 {
 	/**
-	 * This problem is solved by Kadane's Algo
+	 * This problem is solved by Kadane's Algo.
+	 * https://www.youtube.com/watch?v=OexQs_cYgAQ&t=1s
 	 * @param num
 	 * @return
 	 */
@@ -38,11 +39,42 @@ public class q7 {
 		return max;
 	}
 	
+	/**
+	 * This is a different approach. In case of all negatives. We don't want to return any value.
+	 * @param num
+	 * @return
+	 */
+	public static ArrayList<Integer> maxSum1(int [] num){
+		int max_so_far = 0;
+		int local_max = 0;
+		ArrayList<Integer> max = new ArrayList<>();
+		ArrayList<Integer> curr_max = new ArrayList<>();
+		for(int i=0; i<num.length; i++){
+			local_max += num[i];
+			curr_max.add(num[i]);
+			if(local_max < 0){
+				local_max = 0;
+				curr_max.removeAll(curr_max);
+			}
+			else if(max_so_far < local_max){
+				max_so_far = local_max;
+				max.removeAll(max);
+				max.addAll(curr_max);
+			}
+		}
+		return max;
+	}
+	
 	//Driver
 	public static void main(String[] args){
-		int[] arr = {-1,-2,-3,-5,-6,-3};
+		int[] arr = {-2,-8,3,-2,-4,-10};
 		ArrayList<Integer> res  = maxSum(arr);
 		for(int x : res){
+			System.out.print(x+" ");
+		}
+		System.out.println("\nDifferent approach");
+		ArrayList<Integer> res1  = maxSum1(arr);
+		for(int x : res1){
 			System.out.print(x+" ");
 		}
 	}
