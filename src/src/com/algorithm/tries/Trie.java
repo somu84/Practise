@@ -23,6 +23,10 @@ public class Trie{
 			children = new HashMap<Character, TrieNode>();
 			endOfWord = false;
 		}
+		
+		public boolean getEndOfWord(){
+			return endOfWord;
+		}
 	}
 	
 	public final TrieNode root;
@@ -30,6 +34,7 @@ public class Trie{
 	public Trie(){
 		root = new TrieNode();
 	}
+	
 	
 	/**
 	 * Recursive insert
