@@ -24,12 +24,14 @@ public class q7 {
 		}
 	}
 	
+	//Maintain a Trie of all the words
 	public static TrieNode root = new TrieNode();
 	
+	//Push all the valid prefixes, into a separate list.
 	public static ArrayList<String> validPref = new ArrayList<String>();
 	
 	/**
-	 * Modified the trie insert to push all valid prefixes in a seperate list
+	 * Modified the trie insert to push all valid prefixes in a separate list
 	 * @param word
 	 */
 	public static void insert(String word){
