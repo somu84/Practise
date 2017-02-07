@@ -58,6 +58,7 @@ public class q10 {
 	
 	public static WordGraph buildGraph(HashSet<String> dict, String source){
 		WordGraph dictGraph = new WordGraph();
+		LinkedList<String> visited = new LinkedList<String>();
 		if(dictGraph.getNode(source) == null){
 			//Insert the first word
 			dictGraph.addWord(source);
@@ -72,13 +73,40 @@ public class q10 {
 					//getSubWords(dictGraph, wordArr.toString(), dict);
 					continue;
 				}
-				if(dictGraph.getNode(tst) == null)
+				if(dictGraph.getNode(tst) == null){
 					dictGraph.addWord(tst);
+					visited.add(tst);
+				}
 				dictGraph.addWordPath(source, tst);
 				//getSubWords(dictGraph, tst, dict);
 			}
 		}
+		addNextNodes(dictGraph, visited, dict);
 		return dictGraph;
+	}
+	
+	
+	public static void addNextNodes(WordGraph wG, LinkedList<String> nextNodes,HashSet<String> dict){
+		while(!nextNodes.isEmpty()){
+			String source = nextNodes.remove();
+			for(int i=0; i<source.length(); i++){
+				char[] wordArr = source.toCharArray();
+				for(char c='A'; c<='Z'; c++){
+					wordArr[i] = c;
+					String tst = new String(wordArr);
+					if(!dict.contains(tst)){
+						//getSubWords(dictGraph, wordArr.toString(), dict);
+						continue;
+					}
+					if(wG.getNode(tst) == null){
+						wG.addWord(tst);
+						nextNodes.add(tst);
+					}
+					wG.addWordPath(source, tst);
+					//getSubWords(dictGraph, tst, dict);
+				}
+			}
+		}
 	}
 	
 	public static void convert(String sourceL, String destL, HashSet<String> dict){
@@ -96,6 +124,7 @@ public class q10 {
 		while(!nextNode.isEmpty()){
 			Node node = nextNode.remove();
 			if(node == destin){
+				visited.add(node.word);
 				displayPath(visited);
 				return;
 			}
@@ -110,9 +139,10 @@ public class q10 {
 	}
 	
 	public static void displayPath(ArrayList <String> path){
-		for(String wrd: path){
-			System.out.print(wrd+"->");
+		for(int i=0; i<path.size() -1; i++){
+			System.out.print(path.get(i)+"->");
 		}
+		System.out.print(path.get(path.size()-1));
 	}
 	
 	
@@ -131,7 +161,7 @@ public class q10 {
 		dict.add("HILL");
 		dict.add("STOP");
 		dict.add("POMP");
-		dict.add("RAMP");
+		//dict.add("RAMP");
 		
 		convert("damp", "like", dict);
 		
