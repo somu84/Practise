@@ -4,147 +4,81 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-//import src.com.ctc.c20.q10.WordGraph.Node;
-
-//import src.com.algorithms.Graph.Graph.Node;
-
+/**
+ * Given two words of equal length that are in a dictionary, 
+ * write a method to transform one word into another word by changing only one letter at a time. 
+ * The new word you get in each step must be in the dictionary.
+ * @author Somu
+ *
+ */
 public class q10 {
-	
-	public static class Node {
-		private String word;
-		LinkedList<Node> adj = new LinkedList<Node>();
-		
-		private Node(String word) {
-			this.word  = word;
-		}
-	}
-	static class WordGraph{
-		private HashMap<String, Node> wordMap = new HashMap<String, Node>();
-		
-		public Node getNode(String word){
-			return this.wordMap.get(word);
-		}
-		
-		public void addWordPath(String source, String dest){
-			Node src = this.getNode(source);
-			Node destin = this.getNode(dest);
-			src.adj.add(destin);
-		}
-		
-		public void addWord(String wrd){
-			Node newNode = new Node(wrd);
-			this.wordMap.put(wrd, newNode);
-		}
-	}
-	
-	public static void getSubWords(WordGraph wg, String source, HashSet<String> dict){
-		for(int i=0; i<source.length(); i++){
-			char[] wordArr = source.toCharArray();
-			for(char c='A'; c<='Z'; c++){
-				wordArr[i] = c;
-				String tst = new String(wordArr);
-				if(!dict.contains(tst)){
-					continue;
-				}
-				if(wg.getNode(tst) == null)
-					wg.addWord(tst);
-				wg.addWordPath(source, tst);
-				//Recursive call
-				getSubWords(wg, tst, dict);
-			}
-		}
-	}
-	
-	public static WordGraph buildGraph(HashSet<String> dict, String source){
-		WordGraph dictGraph = new WordGraph();
+	/**
+	 * This can be achieved by a modified BFS. Where we use a predecessor hash to strore the prev word.
+	 * When we reach the end, we build the path, based on this predecessor hashmap.
+	 * @param start
+	 * @param end
+	 * @param dict
+	 * @return
+	 */
+	public static LinkedList<String> transform(String start, String end, Set<String> dict){
+		start = start.toUpperCase();
+		end = end.toUpperCase();
+		if(start.equals(end))
+			return null;
+		LinkedList<String> nextWord = new LinkedList<String>();
 		LinkedList<String> visited = new LinkedList<String>();
-		if(dictGraph.getNode(source) == null){
-			//Insert the first word
-			dictGraph.addWord(source);
-		}
-		//Now add all the words with the same length.
-		for(int i=0; i<source.length(); i++){
-			char[] wordArr = source.toCharArray();
-			for(char c='A'; c<='Z'; c++){
-				wordArr[i] = c;
-				String tst = new String(wordArr);
-				if(!dict.contains(tst)){
-					//getSubWords(dictGraph, wordArr.toString(), dict);
-					continue;
-				}
-				if(dictGraph.getNode(tst) == null){
-					dictGraph.addWord(tst);
-					visited.add(tst);
-				}
-				dictGraph.addWordPath(source, tst);
-				//getSubWords(dictGraph, tst, dict);
-			}
-		}
-		addNextNodes(dictGraph, visited, dict);
-		return dictGraph;
-	}
-	
-	
-	public static void addNextNodes(WordGraph wG, LinkedList<String> nextNodes,HashSet<String> dict){
-		while(!nextNodes.isEmpty()){
-			String source = nextNodes.remove();
-			for(int i=0; i<source.length(); i++){
-				char[] wordArr = source.toCharArray();
-				for(char c='A'; c<='Z'; c++){
-					wordArr[i] = c;
-					String tst = new String(wordArr);
-					if(!dict.contains(tst)){
-						//getSubWords(dictGraph, wordArr.toString(), dict);
-						continue;
-					}
-					if(wG.getNode(tst) == null){
-						wG.addWord(tst);
-						nextNodes.add(tst);
-					}
-					wG.addWordPath(source, tst);
-					//getSubWords(dictGraph, tst, dict);
-				}
-			}
-		}
-	}
-	
-	public static void convert(String sourceL, String destL, HashSet<String> dict){
-		String source = sourceL.toUpperCase();
-		String dest = destL.toUpperCase();
-		//Build the a graph based on source
-		WordGraph wG = buildGraph(dict, source);
+		//For printing the path, we need a predecessor word map.
+		HashMap<String, String> prevWord = new HashMap<String, String>();
 		
-		//Do a BFS in the graph based on source and dest
-		Node src = wG.getNode(source);
-		Node destin = wG.getNode(dest);
-		LinkedList<Node> nextNode = new LinkedList<Node>();
-		ArrayList<String> visited = new ArrayList<String>();
-		nextNode.add(src);
-		while(!nextNode.isEmpty()){
-			Node node = nextNode.remove();
-			if(node == destin){
-				visited.add(node.word);
-				displayPath(visited);
-				return;
-			}
-			if(visited.contains(node.word))
-				continue;
-			visited.add(node.word);
-			for(Node child: node.adj){
-				nextNode.add(child);
+		nextWord.add(start);
+		visited.add(start);
+		while(!nextWord.isEmpty()){
+			String w = nextWord.poll();
+			for(String v: getOneEditWords(w)){
+				if(v.equals(end)){
+					//Build the result
+					LinkedList <String> path = new LinkedList<String>();
+					path.add(v);
+					while(w != null){
+						//Keep adding words at the beginning
+						path.add(0, w);
+						//Get the predecessor word
+						w = prevWord.get(w);
+					}
+					return path;
+				}
+				if(dict.contains(v)){
+					if(!visited.contains(v)){
+						nextWord.add(v);
+						visited.add(v);
+						prevWord.put(v, w);
+					}
+				}
 			}
 		}
-		System.out.println("Not possible");
+		return null;
 	}
 	
-	public static void displayPath(ArrayList <String> path){
-		for(int i=0; i<path.size() -1; i++){
-			System.out.print(path.get(i)+"->");
+	public static Set<String> getOneEditWords(String word){
+		Set<String> words = new TreeSet<String>();
+		for(int i=0; i< word.length(); i++){
+			char[] wordArr = word.toCharArray();
+			
+			for(char c='A'; c<='Z'; c++){
+				if(c!= word.charAt(i)){
+					wordArr[i] = c;
+					words.add(new String(wordArr));
+				}
+			}
 		}
-		System.out.print(path.get(path.size()-1));
+		return words;
 	}
-	
 	
 	public static void main(String[] args){
 		HashSet<String> dict = new HashSet<String>();
@@ -163,7 +97,10 @@ public class q10 {
 		dict.add("POMP");
 		//dict.add("RAMP");
 		
-		convert("damp", "like", dict);
+		LinkedList<String> path = transform("damp", "like", dict);
+		for(String str: path){
+			System.out.print(str+" ");
+		}
 		
 		
 		
