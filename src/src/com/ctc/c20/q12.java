@@ -1,24 +1,54 @@
 package src.com.ctc.c20;
+/**
+ * Class to store the result variables
+ * @author Somu
+ *
+ */
+class result{
+	int maxSum = 0;
+	int maxLeft = 0;
+	int maxRight = 0;
+	int maxUp = 0;
+	int maxDown = 0;
+}
 
+
+/**
+ * Given an NxN matrix of positive and negative integers, 
+ * write code to find the sub-matrix with the largest possible sum.
+ * @author Somu
+ *
+ */
 public class q12 {
 	
+	/**
+	 * This is a fucking awesome solution, using DP
+	 * Sadly the complexity is O(n^3).
+	 * Uses a modified Kedane's algo
+	 * 
+	 * https://www.youtube.com/watch?v=yCQN096CwWM&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=14
+	 * @param arr
+	 */
 	public static void getMaxSum(int[][] arr){
 		int[] tmp = new int [arr.length];
-		int maxSum=0;
-		int maxLeft = 0, maxRight = 0, maxUp=0, maxDown=0;
+		result res = new result();
 		for(int L=0; L<arr[0].length; L++ ){
-			for(int R=L; R<arr[0].length; R++){
+			for(int i=0; i<arr.length; i++){
+				tmp[i] = arr[i][L];
+			}
+			getMax(tmp, res, L, L);
+			for(int R=L+1; R<arr[0].length; R++){
 				for(int i=0; i<arr.length; i++){
-					tmp[i] = arr[i][L];
+					tmp[i] += arr[i][R];
 				}
-				getMax(tmp, L, R, maxSum, maxLeft, maxRight, maxUp, maxDown);
+				getMax(tmp, res, L, R);
 			}
 		}
 		
 		//Display Result
-		System.out.println("Max Sum is: "+maxSum);
-		for(int i=maxLeft; i<=maxRight; i++){
-			for(int j=maxUp; j<=maxDown; j++){
+		System.out.println("Max Sum is: "+res.maxSum);
+		for(int i=res.maxLeft; i<=res.maxRight; i++){
+			for(int j=res.maxUp; j<=res.maxDown; j++){
 				System.out.print(arr[i][j]+" ");
 			}
 			System.out.println();
@@ -38,14 +68,12 @@ public class q12 {
 	 * @param maxDown
 	 */
 	public static void getMax(
-			int[] tmp, int L, 
-			int R, int maxSum, 
-			int maxLeft, int maxRight,
-			int maxUp, int maxDown)
+			int[] tmp, result res, int L, int R)
 	{
 		int currMax = tmp[0];
 		int localMax = tmp[0];
 		int up=0, dn = 0;
+		int fup = 0, fdn = 0;
 		
 		for(int i=1; i<tmp.length; i++){
 			if(tmp[i] > localMax+tmp[i]){
@@ -59,15 +87,17 @@ public class q12 {
 			}
 			if(currMax < localMax){
 				currMax = localMax;
+				fup = up;
+				fdn = dn;
 			}
 		}
-		if(maxSum > currMax) return;
+		if(res.maxSum > currMax) return;
 
-		maxSum = currMax;
-		maxUp = up;
-		maxDown = dn;
-		maxLeft = L;
-		maxRight = R;
+		res.maxSum = currMax;
+		res.maxUp = fup;
+		res.maxDown = fdn;
+		res.maxLeft = L;
+		res.maxRight = R;
 		return;
 	}
 	
