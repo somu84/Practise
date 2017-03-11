@@ -3,7 +3,7 @@ package src.com.prac;
 public class AmazonTechInterview {
 
 	public static void main(String[] args) {
-		int[] arr = {};
+		int[] arr = {10,9,10,11,12,13,14,15,16,17};
 		int i = find(arr, 8);
 		if(i!= -1){
 			System.out.println("Found at index: " + i);
